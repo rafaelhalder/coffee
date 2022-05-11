@@ -8,6 +8,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
         ShaderMask(
@@ -41,69 +42,122 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Container(
-                height: 65,
-                decoration: BoxDecoration(
-                  color: Colors.grey[500]?.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Center(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      hintStyle: kBodyText,
-                      border: InputBorder.none,
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Icon(
-                          FontAwesomeIcons.envelope,
-                          size: 28,
-                          color: kWhite,
-                        ),
-                      ),
-                    ),
-                    style: kBodyText,
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Container(
-                height: 65,
-                decoration: BoxDecoration(
-                  color: Colors.grey[500]?.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Center(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      hintStyle: kBodyText,
-                      border: InputBorder.none,
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Icon(
-                          FontAwesomeIcons.lock,
-                          size: 28,
-                          color: kWhite,
-                        ),
-                      ),
-                    ),
-                    style: kBodyText,
-                    keyboardType: TextInputType.name,
-                    textInputAction: TextInputAction.done,
-                  ),
-                ),
-              ),
-            )
+            const TextInputField(
+                hint: 'Email',
+                icon: FontAwesomeIcons.envelope,
+                inputType: TextInputType.emailAddress,
+                inputAction: TextInputAction.next),
+            PasswordInputField(
+                hint: 'Password',
+                icon: FontAwesomeIcons.lock,
+                inputType: TextInputType.name,
+                inputAction: TextInputAction.done)
           ]),
         )
       ],
+    );
+  }
+}
+
+class PasswordInputField extends StatelessWidget {
+  const PasswordInputField({
+    Key? key,
+    required this.icon,
+    required this.hint,
+    required this.inputType,
+    required this.inputAction,
+  }) : super(key: key);
+
+  final IconData icon;
+  final String hint;
+  final TextInputType inputType;
+  final TextInputAction inputAction;
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        height: size.height * 0.08,
+        width: size.width * 0.8,
+        decoration: BoxDecoration(
+          color: Colors.grey[500]?.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Center(
+          child: TextField(
+            obscureText: true,
+            decoration: InputDecoration(
+              hintText: hint,
+              hintStyle: kBodyText,
+              border: InputBorder.none,
+              prefixIcon: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Icon(
+                  icon,
+                  size: 28,
+                  color: kWhite,
+                ),
+              ),
+            ),
+            style: kBodyText,
+            keyboardType: inputType,
+            textInputAction: inputAction,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TextInputField extends StatelessWidget {
+  const TextInputField({
+    Key? key,
+    required this.icon,
+    required this.hint,
+    required this.inputType,
+    required this.inputAction,
+  }) : super(key: key);
+
+  final IconData icon;
+  final String hint;
+  final TextInputType inputType;
+  final TextInputAction inputAction;
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        height: size.height * 0.08,
+        width: size.width * 0.8,
+        decoration: BoxDecoration(
+          color: Colors.grey[500]?.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Center(
+          child: TextField(
+            decoration: InputDecoration(
+              hintText: hint,
+              hintStyle: kBodyText,
+              border: InputBorder.none,
+              prefixIcon: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Icon(
+                  icon,
+                  size: 28,
+                  color: kWhite,
+                ),
+              ),
+            ),
+            style: kBodyText,
+            keyboardType: inputType,
+            textInputAction: inputAction,
+          ),
+        ),
+      ),
     );
   }
 }
